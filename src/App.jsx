@@ -1,17 +1,24 @@
 import { useState } from 'react'
-import './App.css'
-import Comments from './components/comments/comments'
 import {commentData} from './data/commentData'
+import Comments from './components/comments/comments'
+import useFunction from './useFunction'
+import './App.css'
 
 function App() {
 const [nested,setNested]=useState(commentData)
-const addCommentsHandler = (commentId,comment)=>{
-  console.log(commentId,comment,"hello")
-}
+const {addComment,deleteComment} = useFunction();
 
+const addCommentsHandler = (commentId,comment)=>{
+  const updatedTree = addComment(nested,commentId,comment)
+  setNested(updatedTree)
+}
+const deleteCommentHandler = (commentId) =>{
+  const updatedTree = deleteComment(nested,commentId)
+  setNested(updatedTree)
+}
   return (
     <div className="App">
-      <Comments key={nested.id} nested={nested} addCommentsHandler={addCommentsHandler}/>
+      <Comments key={nested.id} nested={nested} addCommentsHandler={addCommentsHandler} deleteCommentHandler={deleteCommentHandler}/>
     </div>
   )
 }
