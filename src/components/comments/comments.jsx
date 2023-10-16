@@ -17,7 +17,9 @@ const Comments = ({nested,addCommentsHandler,deleteCommentHandler}) => {
     setShowInput(false)
   }
     return (
+      // two sections : one for rendering cuurent and next for replies
       <>
+      {/* using template literals to conditionally add className , if nested.text is true*/}
         <div className={`${nested.text && "comment-container"}`}>
           <h3>{nested.text}</h3>
           <div>
@@ -39,6 +41,8 @@ const Comments = ({nested,addCommentsHandler,deleteCommentHandler}) => {
         </div>
 
         <div style={{paddingLeft: 25}}>
+          {/* if there are replies, render another instance of same component for each reply */}
+          {/* recusrion */}
           {nested?.replies?.map((ele)=>(
             <Comments 
             key={ele.id} 
